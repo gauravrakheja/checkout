@@ -1,43 +1,108 @@
-# Test
+just do `bundle install`
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/test`. To experiment with that code, run `bin/console` for an interactive prompt.
+the problem stated below has been coded in the file called spec/test_case_spec.rb
+I thought the best way to show the different components I created would be to make 
+a test case that takes the input given by the question itself
 
-TODO: Delete this and the text above, and describe your gem
+Vinterior Coding Test
+The test should take around 3 hours but is not strictly timed.
+Our client is an online marketplace, here is a sample of some of the products available on our site:
+Product code  | Name                   | Price
+----------------------------------------------------------
+001           | Very Cheap Chair
+002           | Little table
+003           | Funky light
+| £9.25
+| £45.00
+| £19.95
+Our marketing team want to offer promotions as an incentive for our customers to purchase these items.
+If you spend over £60, then you get 10% off of your purchase. If you buy 2 or more very cheap chairs then the price drops to £8.50.
+Our check-out can scan items in any order, and because our promotions will change, it needs to be flexible regarding our promotional rules.
+The interface to our checkout looks like this (shown in Ruby):
+co = Checkout .new (promotional_rules) co .scan (item)
+co .scan (item)
+price = co .total
+Implement a checkout system that fulfills these requirements. Do this outside of any frameworks. You should use TDD.
+Please use git and commit regularly so we can see your thought process. We will review the code and discuss your approach when you have finished.
+Test data
+---------
+Basket: 001,002,003
+Total price expected: £66.78
+Basket: 001,003,001
+Total price expected: £36.95
+-----------------------------------------------
+the project comprises of the following architecture
 
-## Installation
 
-Add this line to your application's Gemfile:
+#CHECKOUT
+`Checkout` is responsible for maintaining a list of `line items`
+and `rules`
 
-```ruby
-gem 'test'
-```
 
-And then execute:
+#scan
+the scan method takes in an item and if a corresponding line item already exists
+it calls add on the line method which increments the quantity of the line item
+otherwise it creates a new line item for the given product
 
-    $ bundle
+#total
+the total method starts with calculating the total value of all the items
+without applying any offers, then it loops over the rules which are rule objects
+that all respond to applicable and apply, apply mutates the total price according to 
+the conditions according to the rule so even if we add a lot more rules tomorrow
+the checkout class will not change
 
-Or install it yourself as:
+#quantity_for
+this method gives the quantity present for a given item by accessing the line item
+default is 0
 
-    $ gem install test
+#items
+this just fetches the items from the line items
+the reason checkout does not all the items is to avoid duplication
 
-## Usage
+#ITEM
+this is an ADT(Abstract Data Type) for the products
 
-TODO: Write usage instructions here
+#LINE_ITEM
+this is a representation of an item in the checkout
+this stores the item and the quantity
 
-## Development
+#add
+this increases the quantity of the line item
 
-After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
+#product_code, price
+accessors for the item price and product code
 
-To install this gem onto your local machine, run `bundle exec rake install`. To release a new version, update the version number in `version.rb`, and then run `bundle exec rake release`, which will create a git tag for the version, push git commits and tags, and push the `.gem` file to [rubygems.org](https://rubygems.org).
+#PROMOTIONAL_RULE
+this enforces developers to implement 
+the apply and applicable method in the rule classes
+so that the checkout does not break
 
-## Contributing
+#MULTIPLE_ITEMS_RULE
+this is a generic rule that takes an item, a minimum
+of items and the new price to assign if that quantity is met
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/test. This project is intended to be a safe, welcoming space for collaboration, and contributors are expected to adhere to the [Contributor Covenant](http://contributor-covenant.org) code of conduct.
+#applicable?
+it returns true if the checkout has more or equal items
+present than the minimum quantity
 
-## License
+#apply
+it takes the checkout and title, and loops over the line items
+if the line item has the same product code as the rule's item,
+it subtracts the amount that had been added to the total for that product
+and replace that by the new amount
 
-The gem is available as open source under the terms of the [MIT License](https://opensource.org/licenses/MIT).
+#TOTAL_PRICE_RULE
+this is a generic rule that applies on the total price of a checkout.
+It takes a minimum amount and a discount
 
-## Code of Conduct
+#applicable?
+the method only considers the price of the checkout without any other rules
+because if we try to loop over the rules when we are trying to check the applicability
+of this rule, it will get stuck in a loop, and this gives a close enough 
+idea of whether the rule will apply(could also be a business requirement to have it this way)
 
-Everyone interacting in the Test project’s codebases, issue trackers, chat rooms and mailing lists is expected to follow the [code of conduct](https://github.com/[USERNAME]/test/blob/master/CODE_OF_CONDUCT.md).
+#apply
+this just subtracts the discounted amount from the total given
+
+
+
