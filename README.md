@@ -34,10 +34,10 @@ Total price expected: £36.95
 the project comprises of the following architecture
 
 
-#CHECKOUT
+```
+CHECKOUT
 `Checkout` is responsible for maintaining a list of `line items`
 and `rules`
-
 
 #scan
 the scan method takes in an item and if a corresponding line item already exists
@@ -58,11 +58,14 @@ default is 0
 #items
 this just fetches the items from the line items
 the reason checkout does not all the items is to avoid duplication
+```
 
-#ITEM
+```
+ITEM
 this is an ADT(Abstract Data Type) for the products
-
-#LINE_ITEM
+```
+```
+LINE_ITEM
 this is a representation of an item in the checkout
 this stores the item and the quantity
 
@@ -71,13 +74,16 @@ this increases the quantity of the line item
 
 #product_code, price
 accessors for the item price and product code
+```
 
-#PROMOTIONAL_RULE
+```
+PROMOTIONAL_RULE
 this enforces developers to implement 
 the apply and applicable method in the rule classes
 so that the checkout does not break
-
-#MULTIPLE_ITEMS_RULE
+```
+```
+MULTIPLE_ITEMS_RULE
 this is a generic rule that takes an item, a minimum
 of items and the new price to assign if that quantity is met
 
@@ -90,8 +96,9 @@ it takes the checkout and title, and loops over the line items
 if the line item has the same product code as the rule's item,
 it subtracts the amount that had been added to the total for that product
 and replace that by the new amount
-
-#TOTAL_PRICE_RULE
+````
+```
+TOTAL_PRICE_RULE
 this is a generic rule that applies on the total price of a checkout.
 It takes a minimum amount and a discount
 
@@ -103,6 +110,6 @@ idea of whether the rule will apply(could also be a business requirement to have
 
 #apply
 this just subtracts the discounted amount from the total given
-
+```
 
 
