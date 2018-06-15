@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-RSpec.describe 'lets try combining the components together' do
+RSpec.describe 'the test data given' do
   let!(:cheap_chair) { Item.new(001, "Very Cheap Chair", 9.25) }
   let!(:little_table) { Item.new(002, "Little table", 45.00) }
   let!(:funky_light) { Item.new(003, "Funky light", 19.95) }
