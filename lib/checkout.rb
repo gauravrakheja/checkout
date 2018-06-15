@@ -1,6 +1,4 @@
-# explicitly stating the classes it needs
-# the more classes it needs to compile the more dependent this
-# class will be
+
 require_relative 'line_item'
 
 class Checkout
