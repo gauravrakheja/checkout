@@ -4,9 +4,9 @@ the problem stated below has been coded in the file called spec/test_case_spec.r
 I thought the best way to show the different components I created would be to make 
 a test case that takes the input given by the question itself
 
-Vinterior Coding Test
-The test should take around 3 hours but is not strictly timed.
-Our client is an online marketplace, here is a sample of some of the products available on our site:
+run `rspec spec/test_case_spec.rb`
+
+```
 Product code  | Name                   | Price
 ----------------------------------------------------------
 001           | Very Cheap Chair
@@ -23,7 +23,8 @@ co = Checkout .new (promotional_rules) co .scan (item)
 co .scan (item)
 price = co .total
 Implement a checkout system that fulfills these requirements. Do this outside of any frameworks. You should use TDD.
-Please use git and commit regularly so we can see your thought process. We will review the code and discuss your approach when you have finished.
+```
+```
 Test data
 ---------
 Basket: 001,002,003
@@ -31,6 +32,9 @@ Total price expected: £66.78
 Basket: 001,003,001
 Total price expected: £36.95
 -----------------------------------------------
+```
+
+
 the project comprises of the following architecture
 
 
