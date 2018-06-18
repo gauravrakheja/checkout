@@ -22,7 +22,10 @@ RSpec.describe 'the test data given' do
   describe 'test case 2' do
     it 'should return 36.95' do
       #order given is 001, 003, 001
-      expect(checkout.total)
+      checkout.scan(cheap_chair)
+      checkout.scan(funky_light)
+      checkout.scan(cheap_chair)
+      expect(checkout.total).to eq 36.95
     end
   end
 end

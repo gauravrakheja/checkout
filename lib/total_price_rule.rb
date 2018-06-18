@@ -10,7 +10,7 @@ class TotalPriceRule < PromotionalRule
     checkout.total_without_offers > minimum_amount
   end
 
-  def apply(total)
+  def apply(checkout, total)
     total -= total*discount/100.00
     total
   end

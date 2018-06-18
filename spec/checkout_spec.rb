@@ -28,7 +28,7 @@ RSpec.describe Checkout do
     let(:subject_with_rule) { described_class.new([rule]) }
 
     before do
-      allow(rule).to receive(:apply) do |total|
+      allow(rule).to receive(:apply) do |checkout, total|
         total + 10
       end
       subject_with_rule.scan(item)

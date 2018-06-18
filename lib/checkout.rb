@@ -21,7 +21,7 @@ class Checkout
   def total
     total = total_without_offers
     rules.each do |rule|
-      total = rule.apply(total) if rule.applicable?(self)
+      total = rule.apply(self, total) if rule.applicable?(self)
     end
     total
   end

@@ -20,4 +20,12 @@ RSpec.describe TotalPriceRule do
       end
     end
   end
+
+  describe '#appply' do
+    let(:checkout) { double(:checkout) }
+
+    it 'should discount the total price by the set percentage' do
+      expect(subject.apply(checkout, 100.00)).to eq 75
+    end
+  end
 end
